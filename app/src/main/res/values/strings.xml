@@ -2,4 +2,5 @@
 
 <resources>
     <string name="app_name">Quake Up</string>
+    <string name="near">Near</string>
 </resources>

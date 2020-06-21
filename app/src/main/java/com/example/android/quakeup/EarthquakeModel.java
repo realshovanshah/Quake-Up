@@ -2,17 +2,19 @@ package com.example.android.quakeup;
 
 public class EarthquakeModel {
 
-    private String mMagnitude;
+    private float mMagnitude;
     private String mLocation;
-    private String mDate;
+    private long mTimeInMilliseconds;
+    private String mUrl;
 
-    public EarthquakeModel(String Magnitude, String Location, String Date) {
-        this.mMagnitude = Magnitude;
-        this.mLocation = Location;
-        this.mDate = Date;
+    public EarthquakeModel(float magnitude, String location, long timeInMilliseconds, String url) {
+        this.mMagnitude = magnitude;
+        this.mLocation = location;
+        this.mTimeInMilliseconds = timeInMilliseconds;
+        this.mUrl = url;
     }
 
-    public String getMagnitude() {
+    public float getMagnitude() {
         return mMagnitude;
     }
 
@@ -20,7 +22,11 @@ public class EarthquakeModel {
         return mLocation;
     }
 
-    public String getDate() {
-        return mDate;
+    public long getTimeInMilliseconds() {
+        return mTimeInMilliseconds;
+    }
+
+    public String getUrl() {
+        return mUrl;
     }
 }

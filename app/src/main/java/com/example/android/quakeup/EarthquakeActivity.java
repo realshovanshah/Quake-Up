@@ -15,13 +15,18 @@
  */
 package com.example.android.quakeup;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.ArrayAdapter;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class EarthquakeActivity extends AppCompatActivity {
 
@@ -41,16 +46,39 @@ public class EarthquakeActivity extends AppCompatActivity {
 //        earthquakes.add(new EarthquakeModel("6.3", "Nepal", "3 Mar, 2018"));
 
         // Find a reference to the {@link ListView} in the layout
-        ListView earthquakeListView = (ListView) findViewById(R.id.list);
+        final ListView earthquakeListView = (ListView) findViewById(R.id.list);
 
         // Create a new {@link ArrayAdapter} of earthquakes
-        EarthquakeAdapter adapter = new EarthquakeAdapter(this, Query.extractEarthquakes());
+        final EarthquakeAdapter adapter = new EarthquakeAdapter(this, Utils.extractEarthquakes());
 
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
         earthquakeListView.setAdapter(adapter);
+        earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                EarthquakeModel currentEarthquake = adapter.getItem(i);
 
-        Log.d(LOG_TAG, "onCreate: " + Query.extractEarthquakes());
+                Uri earthquakeUri = Uri.parse(currentEarthquake.getUrl());
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, earthquakeUri);
+
+                PackageManager packageManager = getPackageManager();
+                List<ResolveInfo> activities = packageManager.queryIntentActivities(browserIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                boolean isIntentSafe = activities.size() > 0;
+
+                if (isIntentSafe) {
+                    startActivity(browserIntent);
+                }
+
+//                Create a chooser
+//                Intent chooser = Intent.createChooser(browserIntent, "Select Browser");
+//                if (browserIntent.resolveActivity(getPackageManager()) != null) {
+//                    startActivity(chooser);
+//                }
+            }
+        });
+
+        Log.d(LOG_TAG, "onCreate: " + Utils.extractEarthquakes());
     }
 
 }
