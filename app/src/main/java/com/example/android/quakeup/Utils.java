@@ -159,6 +159,8 @@ public final class Utils {
 
         List<EarthquakeModel> earthquakes = extractEarthquakesFromJson(jsonResponse);
 
+        Log.d(LOG_TAG, "fetchEarthquakeData: successful.");
+
         return earthquakes;
     }
 
