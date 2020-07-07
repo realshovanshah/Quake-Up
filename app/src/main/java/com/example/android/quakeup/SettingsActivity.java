@@ -28,6 +28,10 @@ public class SettingsActivity extends AppCompatActivity {
 
             Preference orderBy = findPreference(getString(R.string.settings_order_by_key));
             bindPreferenceSummaryToValue(orderBy);
+
+            Preference maxRadius = findPreference("max_radius");
+            bindPreferenceSummaryToValue(maxRadius);
+
         }
 
         @Override
@@ -40,7 +44,11 @@ public class SettingsActivity extends AppCompatActivity {
                     CharSequence[] labels = listPreference.getEntries();
                     preference.setSummary(labels[prefIndex]);
                 }
-            } else {
+            }
+//            if(){
+//                preference.setSummary(stringValue);
+//            }
+            else {
                 preference.setSummary(stringValue);
             }
             return true;

@@ -150,10 +150,15 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
                 getString(R.string.settings_order_by_default)
         );
 
+        String maxRadius = sharedPreferences.getString("max_radius","10");
+
         Uri baseUri = Uri.parse(USGS_REQUEST_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
         uriBuilder.appendQueryParameter("format", "geojson");
         uriBuilder.appendQueryParameter("limit", "10");
+        uriBuilder.appendQueryParameter("longitude","84");
+        uriBuilder.appendQueryParameter("latitude", "28");
+        uriBuilder.appendQueryParameter("maxradius",maxRadius);
         uriBuilder.appendQueryParameter("minmag", minMagnitude);
         uriBuilder.appendQueryParameter("orderby", orderBy);
 
